@@ -7,6 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class Subbreddit extends Model
 {
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'description',
+    ];
+
+    /**
      * Get the user who created a subbreddit.
      */
     public function user()

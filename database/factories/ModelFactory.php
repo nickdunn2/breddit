@@ -22,22 +22,20 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Subbreddit::class, function (Faker\Generator $faker) {
     return [
-        'name'          => $faker->word,
-        'description'   => $faker->sentence(3),
+        'name' => $faker->word,
+        'description' => $faker->text
     ];
 });
-
 $factory->define(App\Post::class, function (Faker\Generator $faker) {
     return [
-        'url'       => $faker->url,
-        'title'     => $faker->words(3),
-        'content'   => $faker->paragraph(2),
+        'url' => $faker->url,
+        'title' => $faker->sentence,
+        'content' => $faker->text
     ];
 });
-
 $factory->define(App\Comment::class, function (Faker\Generator $faker) {
     return [
-        'content'   => $faker->paragraph(2),
+        'content' => $faker->text,
     ];
 });
 
