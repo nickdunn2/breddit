@@ -15,6 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::resource('subbreddit', 'SubbredditController');
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -27,5 +29,5 @@ Route::get('/', function () {
 */
 
 Route::group(['middleware' => ['web']], function () {
-    //
+
 });

@@ -51,8 +51,5 @@ class AddIndexesToAllTables extends Migration
         Schema::table('subbreddit_user', function (Blueprint $table) {
             $table->dropIndex('subbreddit_user_user_id_subbreddit_id_index');
         });
-
-
-
     }
 }
