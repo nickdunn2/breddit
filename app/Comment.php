@@ -35,4 +35,13 @@ class Comment extends Model
     public function parentComment() {
         return $this->belongsTo('App\Comment');
     }
+
+    /**
+     * Get the parent comment a comment belongs to.
+     */
+    public function childComments() {
+        return $this->hasMany('App\Comment');
+    }
+
+
 }
