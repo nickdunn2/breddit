@@ -22,15 +22,17 @@
 |
 */
 
-Route::group(['middleware' => ['web']], function () {
-	Route::get('/', function () {
-	    return view('welcome');
-	});
+Route::resource('comments', 'CommentsController', ['except' => [
+    'create', 'edit'
+]]);
 
-	Route::resource('subbreddits', 'SubbredditsController', ['only' => [
-		'index', 'show'
-	]]);
-});
+Route::resource('posts', 'PostsController', ['except' => [
+    'create', 'edit'
+]]);
+
+Route::resource('users', 'UsersController', ['except' => [
+    'create', 'edit'
+]]);
 
 Route::group(['middleware' => 'web'], function () {
     Route::auth();

@@ -3,12 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Subbreddit;
+use App\User;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class SubbredditsController extends Controller
+class UsersController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +16,7 @@ class SubbredditsController extends Controller
      */
     public function index()
     {
-        return Subbreddit::paginate(15);
+        return User::paginate(15);
     }
 
     /**
@@ -28,13 +27,9 @@ class SubbredditsController extends Controller
      */
     public function store(Request $request)
     {
-        $subbreddit = new Subbreddit;
-        $subbreddit->user_id = Auth::user()->id;
-        $subbreddit->name = $request->name;
-        $subbreddit->description = $request->description;
-        $subbreddit->save();
+        $user = new User;
+        // unsure what to do here
 
-        return $subbreddit;
     }
 
     /**
@@ -45,11 +40,7 @@ class SubbredditsController extends Controller
      */
     public function show($id)
     {
-        return Subbreddit::with([
-            'user', 
-            'posts.comments.childComments'
-            ])
-        ->findOrFail($id);
+        return User::with('subscribedSubbreddits', 'posts')->findOrFail($id);
     }
 
     /**
@@ -61,13 +52,8 @@ class SubbredditsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $subbreddit = Subbreddit::findOrFail($id);
-        $subbreddit->user_id = Auth::user()->id;
-        $subbreddit->name = $request->name;
-        $subbreddit->description = $request->description;
-        $subbreddit->save();
-
-        return $subbreddit;
+        $user = User::findOrFail($id);
+        // unsure what to do here
     }
 
     /**
@@ -78,8 +64,8 @@ class SubbredditsController extends Controller
      */
     public function destroy($id)
     {
-        $subbreddit = Subbreddit::findOrFail($id);
-        $subbreddit->delete();
-        return $subbreddit;
+        $user = User::findOrFail($id);
+        $user->delete();
+        return $user;
     }
 }

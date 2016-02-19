@@ -4,11 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Subbreddit;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class SubbredditsController extends Controller
+class PostsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,7 +16,17 @@ class SubbredditsController extends Controller
      */
     public function index()
     {
-        return Subbreddit::paginate(15);
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
     }
 
     /**
@@ -28,13 +37,7 @@ class SubbredditsController extends Controller
      */
     public function store(Request $request)
     {
-        $subbreddit = new Subbreddit;
-        $subbreddit->user_id = Auth::user()->id;
-        $subbreddit->name = $request->name;
-        $subbreddit->description = $request->description;
-        $subbreddit->save();
-
-        return $subbreddit;
+        //
     }
 
     /**
@@ -45,11 +48,18 @@ class SubbredditsController extends Controller
      */
     public function show($id)
     {
-        return Subbreddit::with([
-            'user', 
-            'posts.comments.childComments'
-            ])
-        ->findOrFail($id);
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
     }
 
     /**
@@ -61,13 +71,7 @@ class SubbredditsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $subbreddit = Subbreddit::findOrFail($id);
-        $subbreddit->user_id = Auth::user()->id;
-        $subbreddit->name = $request->name;
-        $subbreddit->description = $request->description;
-        $subbreddit->save();
-
-        return $subbreddit;
+        //
     }
 
     /**
@@ -78,8 +82,6 @@ class SubbredditsController extends Controller
      */
     public function destroy($id)
     {
-        $subbreddit = Subbreddit::findOrFail($id);
-        $subbreddit->delete();
-        return $subbreddit;
+        //
     }
 }
