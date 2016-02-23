@@ -22,6 +22,10 @@
 |
 */
 
+Route::get('/', function() {
+    return view('welcome');
+});
+
 Route::resource('comments', 'CommentsController', ['except' => [
     'create', 'edit'
 ]]);
