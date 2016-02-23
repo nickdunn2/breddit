@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
+use App\Post;
 use App\Http\Requests;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 class PostsController extends Controller
@@ -16,17 +16,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return Post::paginate(10);
     }
 
     /**
@@ -37,7 +27,15 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $post = new Post;
+        $post->user_id = Auth::user()->id;
+        // $post->subbreddit_id = ?????
+        $post->url = $request->url;
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->save();
+
+        return $post;
     }
 
     /**
@@ -48,18 +46,7 @@ class PostsController extends Controller
      */
     public function show($id)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return Post::with('comments')->findOrFail($id);
     }
 
     /**
@@ -71,7 +58,15 @@ class PostsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $post->user_id = Auth::user()->id;
+        // $post->subbreddit_id = ?????
+        $post->url = $request->url;
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->save();
+
+        return $post;
     }
 
     /**
@@ -82,6 +77,8 @@ class PostsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $post = Post::findOrFail($id);
+        $post->delete();
+        return $post;
     }
 }
