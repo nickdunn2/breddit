@@ -31,8 +31,10 @@ Route::resource('posts', 'PostsController', ['except' => [
 ]]);
 
 Route::resource('users', 'UsersController', ['except' => [
-    'create', 'edit'
+    'create', 'edit', 'store'
 ]]);
+
+
 
 Route::group(['middleware' => 'web'], function () {
     Route::auth();
@@ -40,6 +42,6 @@ Route::group(['middleware' => 'web'], function () {
     Route::get('/home', 'HomeController@index');
 
     Route::resource('subbreddits', 'SubbredditsController', ['except' => [
-		'create', 'edit'
-	]]);
+        'create', 'edit'
+    ]]);
 });

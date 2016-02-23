@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Subbreddit;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;

@@ -20,19 +20,6 @@ class UsersController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $user = new User;
-        // unsure what to do here
-
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
@@ -52,8 +39,12 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // This still needs some sort of authentication
         $user = User::findOrFail($id);
-        // unsure what to do here
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->save();
+        return $user;
     }
 
     /**
