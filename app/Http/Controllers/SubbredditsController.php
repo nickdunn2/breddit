@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App;
 use App\Subbreddit;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -28,7 +29,7 @@ class SubbredditsController extends Controller
     public function store(Request $request)
     {
         $subbreddit = new Subbreddit;
-        $subbreddit->user_id = Auth::user()->id;
+        $subbreddit->user_id = \Auth::user()->id;
         $subbreddit->name = $request->name;
         $subbreddit->description = $request->description;
         $subbreddit->save();
@@ -61,7 +62,6 @@ class SubbredditsController extends Controller
     public function update(Request $request, $id)
     {
         $subbreddit = Subbreddit::findOrFail($id);
-        $subbreddit->user_id = Auth::user()->id;
         $subbreddit->name = $request->name;
         $subbreddit->description = $request->description;
         $subbreddit->save();
