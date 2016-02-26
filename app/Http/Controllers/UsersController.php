@@ -41,6 +41,9 @@ class UsersController extends Controller
     {
         // This still needs some sort of authentication, maybe place inside middleware?
         $user = User::findOrFail($id);
+        if($user->id !== auth()->user()->id) {
+            return response()->json([ 'error' => 403, 'message' => 'This action is unauthorized.' ], 403);
+        }
 
         $user->name = $request->name;
         $user->email = $request->email;
@@ -57,6 +60,10 @@ class UsersController extends Controller
     public function destroy($id)
     {
         $user = User::findOrFail($id);
+        if($user->id !== auth()->user()->id) {
+            return response()->json([ 'error' => 403, 'message' => 'This action is unauthorized.' ], 403);
+        }
+
         $user->delete();
         return $user;
     }
