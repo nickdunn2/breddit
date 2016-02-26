@@ -17,7 +17,9 @@ class SubbredditsController extends Controller
      */
     public function index()
     {
-        return Subbreddit::paginate(15);
+        // pagination returns errors on the AJAX requests
+        // need to find a fix in the multi-layered JSON selector
+        return Subbreddit::all();
     }
 
     /**
