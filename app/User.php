@@ -16,6 +16,15 @@ class User extends Authenticatable
     ];
 
     /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'id' => 'integer'
+    ];
+
+    /**
      * The attributes excluded from the model's JSON form.
      *
      * @var array
