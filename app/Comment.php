@@ -16,6 +16,18 @@ class Comment extends Model
     ];
 
     /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'id' => 'integer',
+        'user_id' => 'integer',
+        'post_id' => 'integer',
+        'comment_id' => 'integer'
+    ];
+
+    /**
      * Get the user a comment belongs to.
      */
     public function user() {

@@ -28,7 +28,7 @@ class PostsController extends Controller
     public function store(Request $request)
     {
         $post = new Post;
-        $post->user_id = \Auth::user()->id;
+        $post->user_id = auth()->user()->id;
         $post->subbreddit_id = $request->subbreddit_id;
         $post->url = $request->url;
         $post->title = $request->title;
@@ -59,6 +59,7 @@ class PostsController extends Controller
     public function update(Request $request, $id)
     {
         $post = Post::findOrFail($id);
+        $this->authorize('update-destroy-post', $post);
         $post->url = $request->url;
         $post->title = $request->title;
         $post->content = $request->post_content;
@@ -76,6 +77,7 @@ class PostsController extends Controller
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
+        $this->authorize('update-destroy-post', $post);
         $post->delete();
         return $post;
     }

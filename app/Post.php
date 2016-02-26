@@ -16,6 +16,17 @@ class Post extends Model
     ];
 
     /**
+     * The attributes that should be casted to native types.
+     *
+     * @var array
+     */
+    protected $casts = [
+        'id' => 'integer',
+        'user_id' => 'integer',
+        'subbreddit_id' => 'integer'
+    ];
+
+    /**
      * Get the user a post belongs to.
      */
     public function user() {

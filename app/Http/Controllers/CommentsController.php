@@ -28,10 +28,16 @@ class CommentsController extends Controller
     public function store(Request $request)
     {
         $comment = new Comment;
-        $comment->user_id = \Auth::user()->id;
+        $comment->user_id = auth()->user()->id;
 
-        $comment->post_id = $request->post_id;
-        $comment->comment_id = $request->comment_id;
+        if($request->post_id) {
+            $comment->post_id = $request->post_id;
+            $comment->comment_id = null;
+        } else {
+            $comment->post_id = null;
+            $comment->comment_id = $request->comment_id;
+        }
+
         $comment->content = $request->comment_content;
         $comment->save();
 
@@ -59,6 +65,7 @@ class CommentsController extends Controller
     public function update(Request $request, $id)
     {
         $comment = Comment::findOrFail($id);
+        $this->authorize('update-destroy-comment', $comment);
         $comment->content = $request->comment_content;
         $comment->save();
 
@@ -75,6 +82,7 @@ class CommentsController extends Controller
     public function destroy($id)
     {
         $comment = Comment::findOrFail($id);
+        $this->authorize('update-destroy-comment', $comment);
         $comment->delete();
         return $comment;
     }
