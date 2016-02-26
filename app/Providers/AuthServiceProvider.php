@@ -26,16 +26,8 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies($gate);
 
-        $gate->define('update-destroy-subbreddit', function ($user, $subbreddit) {
-            return $user->id === $subbreddit->user_id;
-        });
-
-        $gate->define('update-destroy-post', function ($user, $post) {
-            return $user->id === $post->user_id;
-        });
-
-        $gate->define('update-destroy-comment', function ($user, $comment) {
-            return $user->id === $comment->user_id;
+        $gate->define('update-destroy', function ($user, $item) {
+            return $user->id === $item->user_id;
         });
     }
 }

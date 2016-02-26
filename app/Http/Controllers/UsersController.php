@@ -41,6 +41,7 @@ class UsersController extends Controller
     {
         // This still needs some sort of authentication, maybe place inside middleware?
         $user = User::findOrFail($id);
+
         $user->name = $request->name;
         $user->email = $request->email;
         $user->save();

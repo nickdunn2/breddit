@@ -59,7 +59,7 @@ class PostsController extends Controller
     public function update(Request $request, $id)
     {
         $post = Post::findOrFail($id);
-        $this->authorize('update-destroy-post', $post);
+        $this->authorize('update-destroy', $post);
         $post->url = $request->url;
         $post->title = $request->title;
         $post->content = $request->post_content;
@@ -77,7 +77,7 @@ class PostsController extends Controller
     public function destroy($id)
     {
         $post = Post::findOrFail($id);
-        $this->authorize('update-destroy-post', $post);
+        $this->authorize('update-destroy', $post);
         $post->delete();
         return $post;
     }

@@ -64,7 +64,7 @@ class SubbredditsController extends Controller
     public function update(Request $request, $id)
     {
         $subbreddit = Subbreddit::findOrFail($id);
-        $this->authorize('update-destroy-subbreddit', $subbreddit);
+        $this->authorize('update-destroy', $subbreddit);
         $subbreddit->name = $request->name;
         $subbreddit->description = $request->description;
         $subbreddit->save();
@@ -81,7 +81,7 @@ class SubbredditsController extends Controller
     public function destroy($id)
     {
         $subbreddit = Subbreddit::findOrFail($id);
-        $this->authorize('update-destroy-subbreddit', $subbreddit);
+        $this->authorize('update-destroy', $subbreddit);
         $subbreddit->delete();
         return $subbreddit;
     }

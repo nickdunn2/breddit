@@ -65,7 +65,7 @@ class CommentsController extends Controller
     public function update(Request $request, $id)
     {
         $comment = Comment::findOrFail($id);
-        $this->authorize('update-destroy-comment', $comment);
+        $this->authorize('update-destroy', $comment);
         $comment->content = $request->comment_content;
         $comment->save();
 
@@ -82,7 +82,7 @@ class CommentsController extends Controller
     public function destroy($id)
     {
         $comment = Comment::findOrFail($id);
-        $this->authorize('update-destroy-comment', $comment);
+        $this->authorize('update-destroy', $comment);
         $comment->delete();
         return $comment;
     }
