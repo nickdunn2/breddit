@@ -38,7 +38,7 @@ class CommentsController extends Controller
             $comment->comment_id = $request->comment_id;
         }
 
-        $comment->content = $request->comment_content;
+        $comment->comment_content = $request->comment_content;
         $comment->save();
 
         return $comment;
@@ -66,7 +66,7 @@ class CommentsController extends Controller
     {
         $comment = Comment::findOrFail($id);
         $this->authorize('update-destroy', $comment);
-        $comment->content = $request->comment_content;
+        $comment->comment_content = $request->comment_content;
         $comment->save();
 
         return $comment;

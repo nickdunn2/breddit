@@ -16,7 +16,7 @@ class PostsController extends Controller
      */
     public function index()
     {
-        return Post::paginate(10);
+        return Post::with('subbreddit')->orderBy('id', 'desc')->get();
     }
 
     /**
@@ -32,7 +32,7 @@ class PostsController extends Controller
         $post->subbreddit_id = $request->subbreddit_id;
         $post->url = $request->url;
         $post->title = $request->title;
-        $post->content = $request->post_content;
+        $post->post_content = $request->post_content;
         $post->save();
 
         return $post;
@@ -62,7 +62,7 @@ class PostsController extends Controller
         $this->authorize('update-destroy', $post);
         $post->url = $request->url;
         $post->title = $request->title;
-        $post->content = $request->post_content;
+        $post->post_content = $request->post_content;
         $post->save();
 
         return $post;
