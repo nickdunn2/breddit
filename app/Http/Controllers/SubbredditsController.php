@@ -17,8 +17,7 @@ class SubbredditsController extends Controller
      */
     public function index()
     {
-        // pagination returns errors on the AJAX requests, can use all() tmp instead
-        // need to find a fix in the multi-layered JSON selector
+        // if switching between all() and paginate(), must change the for/each loop in app.js
         return Subbreddit::paginate(15);
     }
 
