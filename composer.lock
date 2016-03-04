@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ff78a60ccd420c9fa30f65c637280c38",
-    "content-hash": "1670d29d64ae54fb3e88ae1c99aa2509",
+    "hash": "a20ca2b8fb231c2536d30825cbe0415a",
+    "content-hash": "8dce890a96247f7f496cd5c6ad934e2e",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -894,6 +894,52 @@
                 "shell"
             ],
             "time": "2015-11-12 16:18:56"
+        },
+        {
+            "name": "rap2hpoutre/laravel-log-viewer",
+            "version": "v0.5.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rap2hpoutre/laravel-log-viewer.git",
+                "reference": "120ed1834f4be9b60cca3d2a5b80e408287874de"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rap2hpoutre/laravel-log-viewer/zipball/120ed1834f4be9b60cca3d2a5b80e408287874de",
+                "reference": "120ed1834f4be9b60cca3d2a5b80e408287874de",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "4.2.*|5.*",
+                "php": ">=5.4.0"
+            },
+            "type": "library",
+            "autoload": {
+                "classmap": [
+                    "src/controllers"
+                ],
+                "psr-0": {
+                    "Rap2hpoutre\\LaravelLogViewer\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "rap2hpoutre",
+                    "email": "raphael@ornikar.com"
+                }
+            ],
+            "description": "A Laravel log reader",
+            "keywords": [
+                "log",
+                "log-reader",
+                "log-viewer",
+                "logging"
+            ],
+            "time": "2016-01-25 20:12:40"
         },
         {
             "name": "spatie/laravel-tail",

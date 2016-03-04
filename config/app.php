@@ -157,6 +157,7 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Spatie\Tail\TailServiceProvider::class,
+        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class,
 
     ],
 
