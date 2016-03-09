@@ -21,17 +21,17 @@ var CommentModel = Backbone.Model.extend({
     idAttribute: 'id'
 });
 
-var SubbredditCollection = Backbone.Collection.extend({
+var SubbredditsCollection = Backbone.Collection.extend({
     url: '/api/subbreddits',
     model: SubbredditModel
 });
 
-var PostCollection = Backbone.Collection.extend({
+var PostsCollection = Backbone.Collection.extend({
     url: '/api/posts',
     model: PostModel
 });
 
-var CommentCollection = Backbone.Collection.extend({
+var CommentsCollection = Backbone.Collection.extend({
     url: '/api/comments',
     model: CommentModel
 });
@@ -41,34 +41,60 @@ var PostItemView = Backbone.View.extend({
 
     template: _.template('<h2><%= post.get("title") %></h2>'),
 
+    initialize: function() {
+        this.listenTo(this.model, 'all', function(event) {
+            console.log(event);
+        });
+        this.listenTo(this.model, 'sync', this.render);
+    },
+
+    events: {
+        "click h2": function(e) {
+            this.model.destroy({
+                wait: true
+            });
+        }
+    },
+
     render: function() {
         this.$el.html(this.template({post: this.model}));
+        return this;
     }
 });
 
 var PostsListView = Backbone.View.extend({
     el: '<ul></ul>',
 
+    template: undefined,
+
+    initialize: function() {
+        this.listenTo(this.collection, 'all', function(event) {
+            console.log(event);
+        });
+        this.listenTo(this.collection, 'sync update', this.render);
+    },
+
     render: function() {
         var that = this;
+        this.$el.html('');
         this.collection.each(function(postModel) {
             var postItemView = new PostItemView({ model: postModel });
             postItemView.render();
             that.$el.append(postItemView.el);
-            $('#content').html(postItemView.el);
         });
+        return this;
     }
 });
 
-//var post = new PostModel({id: 1});
-//
-//post.fetch({
-//    success: function() {
-//        var postItemView = new PostItemView({ model: post });
-//        postItemView.render();
-//        $('#content').html(postItemView.el);
-//    }
-//});
+var posts = new PostsCollection();
+posts.fetch({
+    success: function() {
+        var postsListView = new PostsListView({ collection: posts });
+        postsListView.render();
+        $('#content').html(postsListView.el);
+    }
+});
+
 
 
 

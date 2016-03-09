@@ -39,7 +39,6 @@ class UsersController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // This still needs some sort of authentication, maybe place inside middleware?
         $user = User::findOrFail($id);
         if($user->id !== auth()->user()->id) {
             return response()->json([ 'error' => 403, 'message' => 'This action is unauthorized.' ], 403);
