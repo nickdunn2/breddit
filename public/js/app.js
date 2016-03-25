@@ -1,5 +1,6 @@
 'use strict';
 
+
 $.ajaxSetup({
     headers: {
         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -36,64 +37,59 @@ var CommentsCollection = Backbone.Collection.extend({
     model: CommentModel
 });
 
-var PostItemView = Backbone.View.extend({
-    el: '<li></li>',
-
-    template: _.template('<h2><%= post.get("title") %></h2>'),
-
-    initialize: function() {
-        this.listenTo(this.model, 'all', function(event) {
-            console.log(event);
-        });
-        this.listenTo(this.model, 'sync', this.render);
-    },
-
-    events: {
-        "click h2": function(e) {
-            this.model.destroy({
-                wait: true
-            });
-        }
-    },
+var HomeView = Backbone.View.extend({
+    el: '<div class="container">' +
+            '<div class="row">' +
+                '<div class="three columns"></div>' +
+                '<div class="six columns">' +
+                    '<div class="row">' +
+                        '<div class="twelve columns"></div>' +
+                    '</div>' +
+                    '<div class="row">' +
+                        '<div class="twelve columns"></div>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="three columns" id="all-subbreddits"></div>' +
+            '</div>' +
+        '</div>',
 
     render: function() {
-        this.$el.html(this.template({post: this.model}));
+        var subbreddits = new SubbredditsCollection();
+        subbreddits.fetch();
+        var subbredditsListView = new SubbredditsListView({
+            collection: subbreddits
+        });
+        this.$el.find('#all-subbreddits').html(subbredditsListView.render().el);
+
         return this;
     }
 });
 
-var PostsListView = Backbone.View.extend({
+var SubbredditsListView = Backbone.View.extend({
     el: '<ul></ul>',
 
-    template: undefined,
+    template: _.template(
+        '<% subbreddits.each(function(subbreddit) { %>' +
+            '<li><a href="#"><%= subbreddit.get("name") %></a></li>' +
+        '<% }); %>'
+    ),
 
     initialize: function() {
-        this.listenTo(this.collection, 'all', function(event) {
-            console.log(event);
-        });
-        this.listenTo(this.collection, 'sync update', this.render);
+        this.listenTo(this.collection, 'update', this.render);
     },
 
     render: function() {
-        var that = this;
-        this.$el.html('');
-        this.collection.each(function(postModel) {
-            var postItemView = new PostItemView({ model: postModel });
-            postItemView.render();
-            that.$el.append(postItemView.el);
-        });
+        var listItems = this.template({ subbreddits: this.collection });
+        this.$el.html(listItems);
         return this;
     }
 });
 
-var posts = new PostsCollection();
-posts.fetch({
-    success: function() {
-        var postsListView = new PostsListView({ collection: posts });
-        postsListView.render();
-        $('#content').html(postsListView.el);
-    }
-});
+var homeView = new HomeView();
+$('#content').html(homeView.render().el);
+
+
+
 
 
 

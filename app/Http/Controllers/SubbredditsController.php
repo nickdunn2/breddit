@@ -18,7 +18,7 @@ class SubbredditsController extends Controller
     public function index()
     {
         // if switching between all() and paginate(), must change the for/each loop in app.js
-        return Subbreddit::paginate(15);
+        return Subbreddit::all();
     }
 
     /**
