@@ -14,7 +14,14 @@ var SubbredditModel = Backbone.Model.extend({
 
 var PostModel = Backbone.Model.extend({
     urlRoot: '/api/posts',
-    idAttribute: 'id'
+    idAttribute: 'id',
+
+    parse: function(response) {
+        if(response.subbreddit) {
+            response.subbreddit = new SubbredditModel(response.subbreddit);
+        }
+        return response;
+    }
 });
 
 var CommentModel = Backbone.Model.extend({
@@ -43,7 +50,7 @@ var HomeView = Backbone.View.extend({
                 '<div class="three columns"></div>' +
                 '<div class="six columns">' +
                     '<div class="row">' +
-                        '<div class="twelve columns"></div>' +
+                        '<div class="twelve columns" id="posts"></div>' +
                     '</div>' +
                     '<div class="row">' +
                         '<div class="twelve columns"></div>' +
@@ -53,14 +60,27 @@ var HomeView = Backbone.View.extend({
             '</div>' +
         '</div>',
 
-    render: function() {
+    insertSubbreddits: function() {
         var subbreddits = new SubbredditsCollection();
         subbreddits.fetch();
         var subbredditsListView = new SubbredditsListView({
             collection: subbreddits
         });
         this.$el.find('#all-subbreddits').html(subbredditsListView.render().el);
+    },
 
+    insertPosts: function() {
+        var posts = new PostsCollection();
+        posts.fetch();
+        var postsListView = new PostsListView({
+            collection: posts
+        });
+        this.$el.find('#posts').html(postsListView.render().el);
+    },
+
+    render: function() {
+        this.insertSubbreddits();
+        this.insertPosts();
         return this;
     }
 });
@@ -81,6 +101,30 @@ var SubbredditsListView = Backbone.View.extend({
     render: function() {
         var listItems = this.template({ subbreddits: this.collection });
         this.$el.html(listItems);
+        return this;
+    }
+});
+
+var PostsListView = Backbone.View.extend({
+    el: '<ul></ul>',
+
+    template: _.template(
+        '<% posts.each(function(post) { %>' +
+            '<li>' +
+                '<a href="#"><%= post.get("title") %></a>' +
+                '<% if(post.get("subbreddit")) { %>' +
+                    ' <small>(<%= post.get("subbreddit").get("name") %>)</small>' +
+                '<% } %>' +
+            '</li>' +
+        '<% }); %>'
+    ),
+
+    initialize: function() {
+        this.listenTo(this.collection, 'update', this.render);
+    },
+
+    render: function() {
+        this.$el.html(this.template({ posts: this.collection }));
         return this;
     }
 });

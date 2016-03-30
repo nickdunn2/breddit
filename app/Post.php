@@ -37,7 +37,7 @@ class Post extends Model
      * Get the subbreddit a post belongs to.
      */
     public function subbreddit() {
-        return $this->belongsTo('App\User');
+        return $this->belongsTo('App\Subbreddit');
     }
 
     /**
