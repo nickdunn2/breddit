@@ -9,7 +9,14 @@ $.ajaxSetup({
 
 var SubbredditModel = Backbone.Model.extend({
     urlRoot: '/api/subbreddits',
-    idAttribute: 'id'
+    idAttribute: 'id',
+
+    parse: function(response) {
+        if(response.posts) {
+            response.posts = new PostsCollection(response.posts);
+        }
+        return response;
+    }
 });
 
 var PostModel = Backbone.Model.extend({
@@ -90,9 +97,26 @@ var SubbredditsListView = Backbone.View.extend({
 
     template: _.template(
         '<% subbreddits.each(function(subbreddit) { %>' +
-            '<li><a href="#"><%= subbreddit.get("name") %></a></li>' +
+            '<li><a data-id="<%= subbreddit.id %>" href="#"><%= subbreddit.get("name") %></a></li>' +
         '<% }); %>'
     ),
+
+    events: {
+        'click a': 'someFunction'
+    },
+
+    someFunction: function(e) {
+        e.preventDefault();
+        var subbredditId = $(e.target).data('id');
+        var subbreddit = new SubbredditModel({ id: subbredditId });
+        subbreddit.fetch({
+            success: function() {
+                var postsListView = new PostsListView({ collection: subbreddit.get('posts') });
+                $('#posts').html(postsListView.render().el);
+            }
+        });
+
+    },
 
     initialize: function() {
         this.listenTo(this.collection, 'update', this.render);

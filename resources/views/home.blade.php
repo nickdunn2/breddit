@@ -21,6 +21,7 @@
         .container {
             width: 100%;
         }
+
         #all-subbreddits {
             height: 600px;
             overflow: scroll;
@@ -29,6 +30,10 @@
         #posts {
             height: 300px;
             overflow: scroll;
+        }
+
+        li {
+            list-style-type: none;
         }
     </style>
 
