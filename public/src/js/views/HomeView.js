@@ -1,3 +1,5 @@
+var Backbone = require('backbone');
+
 var HomeView = Backbone.View.extend({
     el: '<div class="container">' +
     '<div class="row">' +

@@ -1,3 +1,4 @@
+var Backbone = require('backbone');
 var CommentModel = require('../models/CommentModel.js');
 
 var CommentsCollection = Backbone.Collection.extend({

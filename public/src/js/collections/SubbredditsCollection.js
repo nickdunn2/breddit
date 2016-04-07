@@ -1,3 +1,4 @@
+var Backbone = require('backbone');
 var SubbredditModel = require('../models/SubbredditModel.js');
 
 var SubbredditsCollection = Backbone.Collection.extend({
