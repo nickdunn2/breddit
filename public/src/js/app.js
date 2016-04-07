@@ -12,5 +12,3 @@ $(document).ready(function() {
     var homeView = new HomeView();
     $('#content').html(homeView.render().el);
 });
-
-
