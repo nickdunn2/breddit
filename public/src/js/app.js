@@ -1,6 +1,7 @@
 'use strict';
 
 var $ = window.$ = window.jQuery = require('jquery');
+require('foundation-sites');
 var HomeView = require('./views/HomeView.js');
 
 $(document).ready(function() {

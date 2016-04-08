@@ -2,19 +2,18 @@ var Backbone = require('backbone');
 
 var HomeView = Backbone.View.extend({
     el: '<div class="container">' +
-    '<div class="row">' +
-        '<div class="three columns"></div>' +
-        '<div class="six columns">' +
             '<div class="row">' +
-                '<div class="twelve columns" id="posts"></div>' +
+                '<div class="small-7 columns"></div>' +
+                    '<div class="row">' +
+                        '<div class="small-12 columns" id="posts"></div>' +
+                    '</div>' +
+                    '<div class="row">' +
+                        '<div class="small-12 columns"></div>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="small-5 columns" id="all-subbreddits"></div>' +
             '</div>' +
-            '<div class="row">' +
-                '<div class="twelve columns"></div>' +
-            '</div>' +
-        '</div>' +
-        '<div class="three columns" id="all-subbreddits"></div>' +
-        '</div>' +
-    '</div>',
+        '</div>',
 
     insertSubbreddits: function() {
         var SubbredditsCollection = require('../collections/SubbredditsCollection.js');
