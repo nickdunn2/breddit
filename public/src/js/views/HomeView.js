@@ -1,9 +1,10 @@
 var Backbone = require('backbone');
+var _ = require('underscore');
 
 var HomeView = Backbone.View.extend({
     el: '<div class="container">' +
             '<div class="row">' +
-                '<div class="small-7 columns"></div>' +
+                '<div class="small-7 columns">' +
                     '<div class="row">' +
                         '<div class="small-12 columns" id="posts"></div>' +
                     '</div>' +
