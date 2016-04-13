@@ -1,23 +1,32 @@
 var Backbone = require('backbone');
 var _ = require('underscore');
 
+var SubbredditModel = require('../models/SubbredditModel.js');
+
 var SubbredditsListView = Backbone.View.extend({
     el: '<ul></ul>',
 
     template: _.template(
         '<% subbreddits.each(function(subbreddit) { %>' +
-        '<li><a data-id="<%= subbreddit.id %>" href="#"><%= subbreddit.get("name") %></a></li>' +
-        '<% }); %>'
+            '<li><a data-id="<%= subbreddit.id %>" href="#"><%= subbreddit.get("name") %></a></li>' +
+        '<% }); %>' +
+        '<li>' +
+            '<form>' +
+                '<input type="text" name="name" />' +
+                '<textarea name="description"></textarea>' +
+                '<input type="submit" value="Add Subbreddit" />' +
+            '</form>' +
+        '</li>'
     ),
 
     events: {
-        'click a': 'someFunction'
+        'click a': 'showPostsInSubbreddit',
+        'submit form': 'addSubbreddit'
     },
 
-    someFunction: function(e) {
+    showPostsInSubbreddit: function(e) {
         e.preventDefault();
         var subbredditId = $(e.target).data('id');
-        var SubbredditModel = require('../models/SubbredditModel.js');
         var subbreddit = new SubbredditModel({ id: subbredditId });
         subbreddit.fetch({
             success: function() {
@@ -27,6 +36,16 @@ var SubbredditsListView = Backbone.View.extend({
             }
         });
 
+    },
+
+    addSubbreddit: function(e) {
+        e.preventDefault();
+        var subbreddit = new SubbredditModel({
+            name: $(e.target).find('[name="name"]').val(),
+            description: $(e.target).find('[name="description"]').val()
+        });
+        subbreddit.save();
+        this.collection.add(subbreddit);
     },
 
     initialize: function() {
