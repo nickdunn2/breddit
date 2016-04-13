@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        /* Probably needs to be updated to NOT truncate User, so contributors pulling down and going through the ReadMe can first create a user, and then seed (allowing the seed to randomly generate posts, comments and subscriptions for the created user first) */
         User::truncate();
         Post::truncate();
         Comment::truncate();

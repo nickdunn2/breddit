@@ -41,17 +41,17 @@ Route::group(['middleware' => 'web'], function () {
             'only' => ['index', 'show']
         ]);
 
-        Route::resource('comments', 'CommentsController', ['except' => [
-            'create', 'edit'
-        ]]);
+        Route::resource('comments', 'CommentsController', [
+            'except' => ['create', 'edit']
+        ]);
 
-        Route::resource('posts', 'PostsController', ['except' => [
-            'create', 'edit'
-        ]]);
+        Route::resource('posts', 'PostsController', [
+            'except' => ['create', 'edit']
+        ]);
 
-        Route::resource('users', 'UsersController', ['except' => [
-            'create', 'edit', 'store'
-        ]]);
+        Route::resource('users', 'UsersController', [
+            'except' => ['create', 'edit', 'store']
+        ]);
 
         Route::group(['middleware' => 'auth'], function() {
             Route::resource('subbreddits', 'SubbredditsController', [
