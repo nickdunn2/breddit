@@ -41,6 +41,7 @@
 <body>
     <div id="nav"></div>
     <div id="content"></div>
+    <div id="modal" class="reveal-modal" data-reveal aria-labelledby="modalTitle" aria-hidden="true" role="dialog"></div>
     <div data-user-id="{{ $userId }}"></div>
     <!-- JavaScripts -->
     <script type="text/javascript" src="{{ asset('js/bundle.js') }}"></script>

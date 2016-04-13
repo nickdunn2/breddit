@@ -15,7 +15,7 @@ class CreateSubbreddits extends Migration
         Schema::create('subbreddits', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->text('description');
             $table->timestamps();
         });

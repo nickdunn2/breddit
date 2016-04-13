@@ -22,7 +22,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Subbreddit::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->word,
+        'name' => $faker->sentence($nbWords = 3, $variableNbWords = false) ,
         'description' => $faker->text
     ];
 });

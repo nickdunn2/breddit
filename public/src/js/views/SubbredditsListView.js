@@ -2,26 +2,21 @@ var Backbone = require('backbone');
 var _ = require('underscore');
 
 var SubbredditModel = require('../models/SubbredditModel.js');
+var SubbredditModalView = require('./SubbredditModalView.js');
 
 var SubbredditsListView = Backbone.View.extend({
     el: '<ul></ul>',
 
     template: _.template(
+        '<li id="add-subbreddit"><a href="#" data-reveal-id="modal">Add New Subbreddit</a><li>' +
         '<% subbreddits.each(function(subbreddit) { %>' +
-            '<li><a data-id="<%= subbreddit.id %>" href="#"><%= subbreddit.get("name") %></a></li>' +
-        '<% }); %>' +
-        '<li>' +
-            '<form>' +
-                '<input type="text" name="name" />' +
-                '<textarea name="description"></textarea>' +
-                '<input type="submit" value="Add Subbreddit" />' +
-            '</form>' +
-        '</li>'
+            '<li id="subbreddit"><a data-id="<%= subbreddit.id %>" href="#"><%= subbreddit.get("name") %></a></li>' +
+        '<% }); %>'
     ),
 
     events: {
-        'click a': 'showPostsInSubbreddit',
-        'submit form': 'addSubbreddit'
+        'click #subbreddit': 'showPostsInSubbreddit',
+        'click #add-subbreddit': 'showSubbredditModalView'
     },
 
     showPostsInSubbreddit: function(e) {
@@ -38,14 +33,13 @@ var SubbredditsListView = Backbone.View.extend({
 
     },
 
-    addSubbreddit: function(e) {
+    showSubbredditModalView: function(e) {
         e.preventDefault();
-        var subbreddit = new SubbredditModel({
-            name: $(e.target).find('[name="name"]').val(),
-            description: $(e.target).find('[name="description"]').val()
+        var subbredditModalView = new SubbredditModalView({
+            collection: this.collection
         });
-        subbreddit.save();
-        this.collection.add(subbreddit);
+        $('#modal').html(subbredditModalView.el);
+        subbredditModalView.render();
     },
 
     initialize: function() {
