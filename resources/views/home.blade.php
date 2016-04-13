@@ -39,6 +39,7 @@
 
 </head>
 <body>
+    <div id="nav"></div>
     <div id="content"></div>
 
     <!-- JavaScripts -->
