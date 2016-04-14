@@ -21,13 +21,18 @@ var SubbredditModalView = Backbone.View.extend({
 	},
 
 	addSubbreddit: function(e) {
+		var that = this;
         e.preventDefault();
         var subbreddit = new SubbredditModel({
             name: $(e.target).find('[name="name"]').val(),
             description: $(e.target).find('[name="description"]').val()
         });
-        subbreddit.save();
-        this.collection.add(subbreddit);
+        subbreddit.save({}, {
+        	success: function() {
+        		that.collection.add(subbreddit);
+        		$('#modal').foundation('reveal', 'close');
+        	}
+        });
     },
 
     render: function() {
