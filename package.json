@@ -18,7 +18,6 @@
   },
 
   "scripts": {
-    "develop": "./node_modules/.bin/gulp",
-    "postinstall": "./node_modules/.bin/gulp"
+    "develop": "./node_modules/.bin/gulp"
   }
 }
