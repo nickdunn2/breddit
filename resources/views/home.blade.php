@@ -15,26 +15,7 @@
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
     <style>
-        body {
-            font-size: 12px;
-        }
-        .container {
-            width: 100%;
-        }
-
-        #all-subbreddits {
-            height: 600px;
-            overflow: scroll;
-        }
-
-        #posts {
-            height: 300px;
-            overflow: scroll;
-        }
-
-        li {
-            list-style-type: none;
-        }
+        
     </style>
 
 </head>

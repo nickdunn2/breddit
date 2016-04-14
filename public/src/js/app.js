@@ -1,6 +1,7 @@
 'use strict';
 
 var $ = window.$ = window.jQuery = require('jquery');
+var Backbone = require('backbone');
 require('foundation');
 
 var HomeView = require('./views/HomeView.js');
@@ -19,7 +20,19 @@ $(document).ready(function() {
     $('#nav').html(topNavView.el);
     topNavView.render();
 
-    var homeView = new HomeView();
-    $('#content').html(homeView.el);
-    homeView.render();
+    var AppRouter = Backbone.Router.extend({
+        routes: {
+            '': 'home'
+        },
+
+        home: function() {
+            var homeView = new HomeView();
+            $('#content').html(homeView.el);
+            homeView.render();
+        }
+    });
+
+    new AppRouter();
+    Backbone.history.start();
+
 });
